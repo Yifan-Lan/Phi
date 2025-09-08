@@ -44,11 +44,12 @@ wandb/
 *.mov
 *.mkv
 
-# Except for clean template images and dataset images (handled by Git LFS)
+# Except for clean template images, dataset images, and pretrained models (handled by Git LFS)
 !clean_image/*.png
 !clean_image/*.jpg
 !data/*/images/*.jpg
 !data/*/images/*.png
+!pretrained_phi_image/*.bmp
 
 # Temporary files
 *.tmp
