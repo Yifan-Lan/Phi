@@ -10,6 +10,12 @@ Recently, Multimodal Large Language Models (MLLMs) have gained significant atten
 
 This repository contains the implementations of **Multimodal Tasks (Phi in this repo)** and **Universal Perturbation Tasks**.
 
+<div align="center">
+  <img src="assets/case_study_city.png" alt="Phi Attack Case Study" width="80%">
+  <br>
+  <em>Figure 1: Example of Phi on a city image. The Phi image hijacks the model's response toward a specific preference while maintaining visual similarity to the original.</em>
+</div>
+
 ## Citation
 
 If you find this work useful, please cite our paper:
