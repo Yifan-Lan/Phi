@@ -6,9 +6,12 @@ This repository contains the official implementation of the paper "Phi: Preferen
 
 ## Abstract
 
-Recently, Multimodal Large Language Models (MLLMs) have gained significant attention across various domains. However, their widespread adoption has also raised serious safety concerns. In this paper, we uncover a new safety risk of MLLMs: the output preference of MLLMs can be arbitrarily manipulated by carefully optimized images. Such attacks often generate contextually relevant yet biased responses that are neither overtly harmful nor unethical, making them difficult to detect. Specifically, we introduce a novel method, Preference Hijacking (Phi), for manipulating the MLLM response preferences using a preference hijacked image. Our method works at inference time and requires no model modifications. Additionally, we introduce a universal hijacking perturbation -- a transferable component that can be embedded into different images to hijack MLLM responses toward any attacker-specified preferences. Experimental results across various tasks demonstrate the effectiveness of our approach.
+Recently, Multi-modal Large Language Models (MLLMs) have gained significant attention across various domains. However, their widespread adoption has also raised serious safety concerns. In this paper, we uncover a new safety risk of MLLMs: the output preference of MLLMs can be arbitrarily manipulated by carefully optimized images. Such attacks often generate contextually relevant yet biased responses that are neither overtly harmful nor unethical, making them difficult to detect. Specifically, we introduce a novel method, Preference Hijacking (Phi), for manipulating the MLLM response preferences using a preference hijacked image. Our method works at inference time and requires no model modifications. Additionally, we introduce a universal hijacking perturbation -- a transferable component that can be embedded into different images to hijack MLLM responses toward any attacker-specified preferences. Experimental results across various tasks demonstrate the effectiveness of our approach.
 
-This repository contains the implementations of **Multimodal Tasks (Phi in this repo)** and **Universal Perturbation Tasks**.
+This repository contains the implementations of **Multi-modal Tasks (Phi in this repo)** and **Universal Perturbation Tasks**.
+
+> **🔬 Model Base**: All experiments in this repository are conducted using the **LLaVA-1.5-7B** model as the base multi-modal large language model.
+
 
 <div align="center">
   <img src="assets/case_study_city.png" alt="Phi Attack Case Study" width="80%">
@@ -80,7 +83,8 @@ Phi/
 │   ├── city/                                # Phi training datasets
 │   ├── landscape/                           # Universal perturbation datasets
 │   └── ...
-├── clean image/                             # Original images
+├── clean image/                             # Original clean template images
+├── pretrained_phi_image/                    # Pre-trained Phi images and universal perturbations
 ├── output/                                  # Generated Phi images and evaluation logs
 ├── trl/                                     # Modified TRL library
 ├── GPT_test_score_phi.py                    # GPT evaluation of Phi
@@ -97,9 +101,14 @@ The framework supports various dataset types for different attack scenarios:
 
 | **Task Type** | **Datasets** | **Description** |
 |----------------|--------------|-----------------|
-| **Multimodal Tasks** | `city`, `pizza`, `person`, `tech_nature`, `war_peace`, `power_humility` | Image-specific preference hijacking |
+| **Multi-modal Tasks** | `city`, `pizza`, `person`, `tech_nature`, `war_peace`, `power_humility` | Image-specific preference hijacking |
 | **Universal Perturbation Tasks** | `food`, `landscape`, `people` (+ `_test` variants) | Transferable hijacking perturbations across images |
 
+The universal hijacking perturbation datasets (`food`, `food_test`, `landscape`, `landscape_test`, `people`, `people_test`) contain many images. You can also download them from:
+
+🔗 **Google Drive**: [https://drive.google.com/drive/folders/1BD_Y9withKi4C4Z7CUd9qBfUamRB9GCq](https://drive.google.com/drive/folders/1BD_Y9withKi4C4Z7CUd9qBfUamRB9GCq)
+
+🤗 **HuggingFace Hub**: [https://huggingface.co/datasets/yflantmy/universal-preference-hijacking-datasets](https://huggingface.co/datasets/yflantmy/universal-preference-hijacking-datasets)
 
 ### Dataset Structure
 
@@ -107,8 +116,8 @@ Organize your datasets as follows:
 ```
 data/
 ├── city/            
-│   ├── train.csv    # Training dataset for multimodal tasks (Phi)
-│   └── test.csv     # Test dataset for multimodal tasks (Phi)
+│   ├── train.csv    # Training dataset for multi-modal tasks (Phi)
+│   └── test.csv     # Test dataset for multi-modal tasks (Phi)
 ├── landscape/       
 │   ├── images/
 │   └── train.csv    # Training dataset for universal hijacking perturbations
@@ -130,7 +139,7 @@ Each CSV file should contain the following columns:
 
 ### Training
 
-#### 1. Phi Training (for Multimodal Task)
+#### 1. Phi Training (for Multi-modal Task)
 
 Train a preference-hijacked image for a specific dataset:
 
@@ -145,6 +154,14 @@ accelerate launch --gpu_ids 0 examples/scripts/train_phi.py \
   - **Options**: `city`, `pizza`, `person`, `tech_nature`, `war_peace`, `power_humility`
 - `--template_img`: Path to the clean image to be hijacked
   - **Format**: `.png`, `.jpg`, `.bmp`
+
+> **⚠️ Important**: The `--ds_type` must match with the corresponding `--template_img`. For example:
+> - `--ds_type city` should use `--template_img clean_image/cityview.png`
+> - `--ds_type pizza` should use `--template_img clean_image/pizza.png`
+> - `--ds_type person` should use `--template_img clean_image/person.png`
+> - `--ds_type tech_nature` should use `--template_img clean_image/tech_nature.png`
+> - `--ds_type war_peace` should use `--template_img clean_image/war_peace.png`
+> - `--ds_type power_humility` should use `--template_img clean_image/power_humility.png`
 
 #### 2. Universal Border Perturbation Training
 
@@ -196,6 +213,16 @@ accelerate launch --gpu_ids 0 examples/scripts/eval_phi.py \
 - `--ds_type`: Must match the training dataset
 - `--phi_img_path`: Path to generated Phi image (`.bmp` file)
 
+**Using Pre-trained Phi Images:**
+You can use the pre-trained Phi images provided in the `pretrained_phi_image/` directory for quick testing:
+
+```bash
+# Example: Evaluate pre-trained city Phi image
+accelerate launch --gpu_ids 0 examples/scripts/eval_phi.py \
+    --ds_type city \
+    --phi_img_path pretrained_phi_image/city_phi.bmp
+```
+
 #### 2. Universal Perturbation Evaluation
 
 Evaluate universal border perturbation:
@@ -223,6 +250,18 @@ accelerate launch --gpu_ids 0 examples/scripts/eval_universal_perturbation.py \
   - **Options**: `border`, `patch`
 - `--border_size`/`--patch_size`: Must match training configuration
 - `--p_path`: Path to generated perturbation file (`.bmp` file)
+
+**Using Pre-trained Universal Border Perturbation:**
+You can use the pre-trained universal border perturbation (border_size=252) provided in the `pretrained_phi_image/` directory for quick testing:
+
+```bash
+# Example: Evaluate pre-trained landscape border perturbation
+accelerate launch --gpu_ids 0 examples/scripts/eval_universal_perturbation.py \
+    --ds_type landscape_test \
+    --p_type border \
+    --border_size 252 \
+    --p_path pretrained_phi_image/landscape_border.bmp
+```
 
 > **⚠️ Important**: Use test datasets (`*_test`) for evaluation to ensure proper train/test split
 

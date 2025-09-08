@@ -62,7 +62,7 @@ class CustomPatchArguments:
 
     ds_type: str = field(
         default=None,
-        metadata={"help": "Dataset type to use for training. Options include: hallucination, jailbreak, power-seeking, wealth-seeking, trump, people, food, landscape, all, people_trend, people_cn, people_fr, people_sy, food_trend, landscape_trend, hallucination_v, m_jailbreak, medical"}
+        metadata={"help": "Dataset type to use for training. Options include: landscape, food, people"}
     )
     patch_size: int = field(
         default=168,
@@ -152,7 +152,7 @@ if __name__ == "__main__":
     
     wandb.init(
       project="Phi",
-      name=f"universal_patch_num{num_iter}_ps{patch_size}_ap{attack_power}_a{alpha}_bs{training_args.per_device_train_batch_size}_ba{training_args.gradient_accumulation_steps}",
+      name=f"universal_patch_num{num_iter}_ds{ds_type}_ps{patch_size}_ap{attack_power}_a{alpha}_bs{training_args.per_device_train_batch_size}_ba{training_args.gradient_accumulation_steps}",
       config={
       "num_iter": num_iter,
       "attack_power": attack_power,

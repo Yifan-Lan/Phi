@@ -61,7 +61,7 @@ class CustomArguments:
     
     ds_type: str = field(
         default=None,
-        metadata={"help": "Dataset type to use for training. Options include: hallucination, jailbreak, power-seeking, wealth-seeking, organ, city, pizza, trump, stock, trump_trendy, trump_power, gold_wealth, trump_wealth, conflict, non_env, non_env_new, trump_power_seeking, car_deceptive, tech, war5, war3, power, solo, solo_new"}
+        metadata={"help": "Dataset type to use for training. Options include: city, person, pizza, tech_nature, war_peace, power_humility"}
     )
     template_img: Optional[str] = field(
         default=None,

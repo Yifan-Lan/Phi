@@ -75,7 +75,7 @@ class CustomEvalArguments:
     )
     ds_type: str = field(
         default="landscape_test",
-        metadata={"help": "Dataset type to use for evaluation. Options include: hallucination, jailbreak, power-seeking, wealth-seeking, city, pizza, trump, stock, people2, food2, landscape2, all2, people_trend2, people_fr2, food_trend2, landscape_trend2, people_sy2, m_jailbreak"}
+        metadata={"help": "Dataset type to use for evaluation. Options include: landscape_test, food_test, people_test"}
     )
     border_size: int = field(
         default=260,
@@ -93,7 +93,7 @@ def parse_custom_args():
                        help='Perturbation type: border or patch')
     parser.add_argument('--p_path', type=str, default=None,
                        help='Path to perturbation file')
-    parser.add_argument('--ds_type', type=str, default="landscape2",
+    parser.add_argument('--ds_type', type=str, default="landscape_test",
                        help='Dataset type to use for evaluation')
     parser.add_argument('--border_size', type=int, default=260,
                        help='Border size for border perturbation type')
