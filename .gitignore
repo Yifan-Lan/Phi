@@ -37,24 +37,18 @@ logs/
 wandb/
 .wandb/
 
-# Large files (should be stored with Git LFS or external storage)
+# Large files (use Git LFS for images)
 *.bmp
-*.png
-*.jpg
-*.jpeg
-*.gif
 *.mp4
 *.avi
 *.mov
 *.mkv
 
-# Except for clean template images
+# Except for clean template images and dataset images (handled by Git LFS)
 !clean_image/*.png
 !clean_image/*.jpg
-
-# Dataset images (should be downloaded separately)
-data/*/images/
-data/*/*/images/
+!data/*/images/*.jpg
+!data/*/images/*.png
 
 # Temporary files
 *.tmp
