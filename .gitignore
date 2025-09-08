@@ -205,4 +205,4 @@ examples/notebooks/wandb/
 wandb/
 
 # cli scripts that are symlinked from `examples/scripts`
-trl/commands/scripts/
+trl/commands/scripts/data/*/images/
