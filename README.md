@@ -24,13 +24,14 @@ This repository contains the implementations of **Multi-modal Tasks (Phi in this
 If you find this work useful, please cite our paper:
 
 ```bibtex
-@inproceedings{
-lan2025phi,
-title={Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time},
-author={Yifan Lan and Yuanpu Cao and Weitong Zhang and Lu Lin and Jinghui Chen},
-booktitle={The 2025 Conference on Empirical Methods in Natural Language Processing},
-year={2025},
-url={https://openreview.net/forum?id=yTszIbZM9C}
+@article{lan2025phipreferencehijackingmultimodal,
+      title={Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time}, 
+      author={Yifan Lan and Yuanpu Cao and Weitong Zhang and Lu Lin and Jinghui Chen},
+      year={2025},
+      eprint={2509.12521},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2509.12521}, 
 }
 ```
 
