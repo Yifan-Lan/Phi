@@ -1,4 +1,4 @@
-# Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time
+# Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time (EMNLP 2025 Oral)
 
 This repository contains the official implementation of the paper "Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time" accepted at EMNLP 2025.
 
@@ -9,6 +9,8 @@ This repository contains the official implementation of the paper "Phi: Preferen
 Recently, Multi-modal Large Language Models (MLLMs) have gained significant attention across various domains. However, their widespread adoption has also raised serious safety concerns. In this paper, we uncover a new safety risk of MLLMs: the output preference of MLLMs can be arbitrarily manipulated by carefully optimized images. Such attacks often generate contextually relevant yet biased responses that are neither overtly harmful nor unethical, making them difficult to detect. Specifically, we introduce a novel method, Preference Hijacking (Phi), for manipulating the MLLM response preferences using a preference hijacked image. Our method works at inference time and requires no model modifications. Additionally, we introduce a universal hijacking perturbation -- a transferable component that can be embedded into different images to hijack MLLM responses toward any attacker-specified preferences. Experimental results across various tasks demonstrate the effectiveness of our approach.
 
 This repository contains the implementations of **Multi-modal Tasks (Phi in this repo)** and **Universal Perturbation Tasks**.
+
+This repository is built upon [Hugging Face TRL](https://github.com/huggingface/trl).
 
 > **🔬 Model Base**: All experiments in this repository are conducted using the **LLaVA-1.5-7B** model as the base multi-modal large language model.
 
