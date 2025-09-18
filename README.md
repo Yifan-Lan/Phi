@@ -2,7 +2,7 @@
 
 This repository contains the official implementation of the paper "Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time" accepted at EMNLP 2025.
 
-📄 **Paper**: [Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time](https://openreview.net/forum?id=e0uaB95224)
+📄 **Paper**: [Phi: Preference Hijacking in Multi-modal Large Language Models at Inference Time](https://arxiv.org/abs/2509.12521)
 
 ## Abstract
 
